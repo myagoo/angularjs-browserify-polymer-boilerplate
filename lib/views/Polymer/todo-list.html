@@ -1,0 +1,34 @@
+<link rel="import" href="core-list/core-list.html">
+<link rel="import" href="core-item/core-item.html">
+<polymer-element name="todo-list">
+    <template>
+        <style>
+          core-list {
+              height: 500px;
+          }
+        </style>
+        <core-input placeholder="Nouvelle tâche..."></core-input>
+        <core-list id="todos" data="{{todos}}" height="80">
+            <template>
+                <core-item label="{{text}}"></core-item>
+            </template>
+        </core-list>
+    </template>
+    <script>
+        (function() {
+          console.log('test');
+            var todoListService = angular.injector(['boilerplate']).get('TodoListService');
+
+            Polymer('todo-list', {
+                ready: function() {
+                    this.todos = todoListService.getTodos();
+                    this.todos.forEach(function(todo){console.log(todo.text)})
+                },
+                tapAction: function(e) {
+                    console.log('tap', e);
+                }
+            });
+
+        })();
+    </script>
+</polymer-element>
